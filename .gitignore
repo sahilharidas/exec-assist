@@ -1,0 +1,11 @@
+.env
+*.env
+!.env.example
+state/
+logs/
+backups/
+vault/
+.venv/
+__pycache__/
+*.pyc
+data/

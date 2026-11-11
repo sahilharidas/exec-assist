@@ -1,0 +1,9 @@
+name: reminder-buttons
+version: 1.0.0
+description: "One-off reminders sent with Done / Snooze buttons on Telegram; tools reminder_add, reminder_list, reminder_cancel."
+author: local
+kind: standalone
+provides_tools:
+  - reminder_add
+  - reminder_list
+  - reminder_cancel

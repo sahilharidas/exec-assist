@@ -1,0 +1,30 @@
+services:
+  ea_mcp:
+    build: .
+    container_name: ea_mcp
+    restart: unless-stopped
+    # Run as the same uid as the cron jobs, which also write state/tasks.json,
+    # so the container never leaves root-owned files behind.
+    user: "${EA_UID:-1000}:${EA_GID:-1000}"
+    environment:
+      EA_VAULT_ROOT: /vault
+      EA_VAULT_NAME: ${EA_VAULT_NAME:-Notes}
+      EA_STATE_DIR: /state
+      EA_TZ: ${EA_TZ:-Africa/Johannesburg}
+      PORT: "8000"
+    volumes:
+      - ${EA_VAULT_ROOT:?set EA_VAULT_ROOT to the synced vault directory}:/vault
+      - ../state:/state
+      # Mounted, not copied: edits to the engine or the server itself need only
+      # a restart, not a rebuild. The image still COPYs server.py so it can run
+      # standalone if the mount is ever absent.
+      - ..:/app/exec-assist:ro
+      - ./server.py:/app/server.py:ro
+    networks:
+      - hermes_mcp
+
+# The agent gateway's docker network; the agent reaches this server at
+# http://ea_mcp:8000/sse. Nothing is published on the host.
+networks:
+  hermes_mcp:
+    external: true

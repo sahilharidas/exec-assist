@@ -1,0 +1,12 @@
+# Times are UTC; the comments give local time (UTC+2).
+# 02:00 - tidy loose dated daily notes into the Daily folder
+0 0 * * *   python3 /path/to/exec-assist/bin/ea-autofile.py --apply
+# 06:40 - carry yesterday's unfinished items forward, write _Today.md
+40 4 * * *  python3 /path/to/exec-assist/bin/ea-snapshot.py
+# 13:00 - midday nudge; silent when there is nothing worth saying
+0 11 * * *  python3 /path/to/exec-assist/bin/ea-stale.py
+# 21:00 - evening shutdown prompt
+0 19 * * *  python3 /path/to/exec-assist/bin/ea-evening.py
+# Sunday 16:45 and 17:00 - rhythm log, then the weekly review draft
+45 14 * * 0 python3 /path/to/exec-assist/bin/ea-energy.py
+0 15 * * 0  python3 /path/to/exec-assist/bin/ea-weekly.py

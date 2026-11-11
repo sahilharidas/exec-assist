@@ -1,0 +1,5 @@
+name: task-buttons
+version: 1.0.0
+description: "Done / Drop buttons on the exec-assist task nags; a tap closes the item in the vault through the exec_assist MCP server (no model)."
+author: local
+kind: standalone
